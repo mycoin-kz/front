@@ -1,36 +1,36 @@
 <template>
-  <div class="twitter-chart">
+  <div class="twitter-chart" v-if="reddit">
     <div class="stats">
       <h3 class="fw-600">Reddit</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{points}}</span>
+        <span class="value grey">{{reddit.points}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Active users</span>
-        <span class="value grey">{{active_users}}</span>
+        <span class="value grey">{{reddit.active_users}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Comments / day</span>
-        <span class="value grey">{{comments_per_day}}</span>
+        <span class="value grey">{{reddit.comments_per_day}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Comments / hour</span>
-        <span class="value grey">{{comments_per_hour}}</span>
+        <span class="value grey">{{reddit.comments_per_hour}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Posts per day</span>
-        <span class="value grey">{{posts_per_day}}</span>
+        <span class="value grey">{{reddit.posts_per_day}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Subscribers</span>
-        <span class="value grey">{{subscribers}}</span>
+        <span class="value grey">{{reddit.subscribers}}</span>
       </div>
     </div>
     <div class="chart">
@@ -47,7 +47,7 @@
 import {useStore} from '@/store/index'
 import { reactive, ref } from '@vue/reactivity';
 
-const {active_users, comments_per_day, comments_per_hour, posts_per_day, points, subscribers} = useStore().fulldata.reddit
+const reddit = useStore().fulldata.reddit
 const {reddit_perc} = useStore().summarydata
 
 const options = reactive({

@@ -1,36 +1,36 @@
 <template>
-  <div class="twitter-chart">
+  <div class="twitter-chart" v-if="twitter">
     <div class="stats">
       <h3 class="fw-600">Twitter</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{points}}</span>
+        <span class="value grey">{{twitter.points}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Followers</span>
-        <span class="value grey">{{followers}}</span>
+        <span class="value grey">{{twitter.followers}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Following</span>
-        <span class="value grey">{{following}}</span>
+        <span class="value grey">{{twitter.following}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Favourites</span>
-        <span class="value grey">{{favourites}}</span>
+        <span class="value grey">{{twitter.favourites}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Lists</span>
-        <span class="value grey">{{lists}}</span>
+        <span class="value grey">{{twitter.lists}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Statuses</span>
-        <span class="value grey">{{statuses}}</span>
+        <span class="value grey">{{twitter.statuses}}</span>
       </div>
     </div>
     <div class="chart">
@@ -47,7 +47,7 @@
 import {useStore} from '@/store/index'
 import { reactive, ref } from '@vue/reactivity';
 
-const {favourites, followers, following, lists, points, statuses} = useStore().fulldata.twitter
+const twitter = useStore().fulldata.twitter
 const {twitter_perc} = useStore().summarydata
 const options = reactive({
   chart: {

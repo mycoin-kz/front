@@ -1,26 +1,26 @@
 <template>
-  <div class="twitter-chart">
+  <div class="twitter-chart" v-if="facebook">
     <div class="stats">
       <h3 class="fw-600">Facebook</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{points}}</span>
+        <span class="value grey">{{facebook.points}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Likes</span>
-        <span class="value grey">{{likes}}</span>
+        <span class="value grey">{{facebook.likes}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Talking about</span>
-        <span class="value grey">{{talking_about}}</span>
+        <span class="value grey">{{facebook.talking_about}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Is closed?</span>
-        <span class="value grey">{{is_closed ? 'Yes' : 'No'}}</span>
+        <span class="value grey">{{facebook.is_closed ? 'Yes' : 'No'}}</span>
       </div>
     </div>
     <div class="chart">
@@ -37,7 +37,7 @@
 import {useStore} from '@/store/index'
 import { reactive, ref } from '@vue/reactivity';
 
-const { points, is_closed, likes, talking_about } = useStore().fulldata.facebook
+const facebook = useStore().fulldata.facebook
 const {fb_perc} = useStore().summarydata
 
 const options = reactive({

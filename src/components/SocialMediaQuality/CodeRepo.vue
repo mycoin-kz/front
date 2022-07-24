@@ -1,36 +1,36 @@
 <template>
-  <div class="twitter-chart">
+  <div class="twitter-chart" v-if="coderepo">
     <div class="stats">
       <h3 class="fw-600">Code Repository</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{points}}</span>
+        <span class="value grey">{{coderepo.points}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Closed Issues</span>
-        <span class="value grey">{{closed_total_issues}}</span>
+        <span class="value grey">{{coderepo.closed_total_issues}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Contributors</span>
-        <span class="value grey">{{contributors}}</span>
+        <span class="value grey">{{coderepo.contributors}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Forks</span>
-        <span class="value grey">{{forks}}</span>
+        <span class="value grey">{{coderepo.forks}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Stars</span>
-        <span class="value grey">{{stars}}</span>
+        <span class="value grey">{{coderepo.stars}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Subscribers</span>
-        <span class="value grey">{{subscribers}}</span>
+        <span class="value grey">{{coderepo.subscribers}}</span>
       </div>
     </div>
     <div class="chart">
@@ -47,7 +47,7 @@
 import {useStore} from '@/store/index'
 import { reactive, ref } from '@vue/reactivity';
 
-const { points, contributors, forks, stars, subscribers, closed_total_issues } = useStore().fulldata.codrepo
+const coderepo = useStore().fulldata.codrepo
 const {codrepo_perc} = useStore().summarydata
 
 const options = reactive({
