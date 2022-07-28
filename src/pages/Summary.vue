@@ -3,6 +3,9 @@
     <div v-if="store.loading">
       loading...
     </div>
+    <div v-else-if="store.error">
+      {{store.error}}
+    </div>
     <div v-else>
       <token-summary></token-summary>
       <trading-signals></trading-signals>

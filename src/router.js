@@ -5,13 +5,12 @@ import Summary from '@/pages/Summary.vue'
 const routes = [
   {
     path: '',
+    redirect: '/1182'
+  },
+  {
+    path: '/:id',
     name: 'Summary',
     component: Summary,
-    children: [
-      {
-        path: '/:id'
-      }
-    ]
   }
 ]
 export const router = createRouter({

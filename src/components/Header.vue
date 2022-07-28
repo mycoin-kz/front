@@ -1,28 +1,84 @@
 <template>
   <header>
     <div class="container header-inner">
-      <div class="logo">
+      <router-link to="/" class="logo">
         <img src="../assets/img/chart.png" alt="logo-header">
         <span class="logo-text">Coinfolio</span>
-      </div>
+      </router-link>
 
-      <div class="searchbar">
+      <div class="searchbar" v-click-outside="hide" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12.803 13.8637C13.0959 14.1566 13.5708 14.1566 13.8637 13.8637C14.1566 13.5708 14.1566 13.0959 13.8637 12.803L12.803 13.8637ZM11.25 7C11.25 9.34721 9.34721 11.25 7 11.25V12.75C10.1756 12.75 12.75 10.1756 12.75 7H11.25ZM7 11.25C4.65279 11.25 2.75 9.34721 2.75 7H1.25C1.25 10.1756 3.82436 12.75 7 12.75V11.25ZM2.75 7C2.75 4.65279 4.65279 2.75 7 2.75V1.25C3.82436 1.25 1.25 3.82436 1.25 7H2.75ZM7 2.75C9.34721 2.75 11.25 4.65279 11.25 7H12.75C12.75 3.82436 10.1756 1.25 7 1.25V2.75ZM13.8637 12.803L11.0719 10.0113L10.0113 11.0719L12.803 13.8637L13.8637 12.803Z" fill="#808191"/>
         </svg>
         <input type="text" v-model="searchword" placeholder="Search">
+        <div class="options" v-if="options.length">
+          <div @click="navigate('/'+token.cryptocompare_id)" class="search-option" v-for="token in options" :key="token.cryptocompare_id">
+            <img class="token-image" :src="token.imageurl" alt="" v-if="token.imageurl">
+            <div v-else class="token-image no-image"></div>
+            <span>{{token.fullname}}</span>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import { ref } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
+import { storeToRefs } from 'pinia';
+import { useStore } from '@/store';
+import { onMounted } from 'vue';
 
+// onMounted(() => useStore().fetchOverallTokens())
 const searchword = ref('')
+const {overall_tokens} = storeToRefs(useStore())
+if (overall_tokens.value !== null || !overall_tokens.value){
+  useStore().fetchOverallTokens()
+}
+const navigate = (path) => window.location=path
+const options = computed(() => {
+  return searchword.value ? overall_tokens.value.filter(el => el.fullname.toLowerCase().includes(searchword.value.toLowerCase())) : []
+})
+const hide = () => {
+  searchword.value = ''
+  console.log('hide')
+}
+const log = (val) => console.log(val)
 </script>
 
 <style lang="scss" scoped>
+.options{
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 2.5rem;
+  width: 100%;
+  background: white;
+  .token-image{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .no-image{
+    background: grey;
+  }
+  .search-option{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    grid-gap: 1rem;
+
+    padding: 0.5rem;
+    cursor: pointer;
+
+    &:hover{
+      background: rgb(243, 243, 243);
+    }
+  }
+}
 header{
   background: #FCFCFC;
   padding: 1rem;
@@ -44,6 +100,7 @@ header{
       }
     }
     .searchbar{
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: flex-start;
