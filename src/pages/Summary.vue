@@ -22,12 +22,12 @@ import { useStore } from '@/store/index'
 import { useRoute } from 'vue-router'
 
 const store = useStore()
-const loading = store.loading
+
 const id = useRoute().params.id
 if (id){
-  store.fetchData(id)
+  useStore().fetchData(id)
 } else {
-  store.fetchData()
+  useStore().fetchData()
 }
 </script>
 

@@ -4,15 +4,15 @@
     <div class="stats">
       <div class="bullish">
         <span class="key">Bullish</span>
-        <span class="value">{{store.summarydata.bullish}}</span>
+        <span class="value">{{store.summarydata.bullish || '-'}}</span>
       </div>
       <div class="neutral">
         <span class="key">Neutral</span>
-        <span class="value">{{store.summarydata.neutral}}</span>
+        <span class="value">{{store.summarydata.neutral || '-'}}</span>
       </div>
       <div class="bearish">
         <span class="key">Bearish</span>
-        <span class="value">{{store.summarydata.bearish}}</span>
+        <span class="value">{{store.summarydata.bearish || '-'}}</span>
       </div>
     </div>
   </div>

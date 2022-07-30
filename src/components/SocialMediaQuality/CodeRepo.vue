@@ -1,42 +1,42 @@
 <template>
-  <div class="twitter-chart" v-if="coderepo">
+  <div class="twitter-chart" v-if="store.fulldata.codrepo">
     <div class="stats">
       <h3 class="fw-600">Code Repository</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{coderepo.points}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.points || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Closed Issues</span>
-        <span class="value grey">{{coderepo.closed_total_issues}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.closed_total_issues || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Contributors</span>
-        <span class="value grey">{{coderepo.contributors}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.contributors || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Forks</span>
-        <span class="value grey">{{coderepo.forks}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.forks || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Stars</span>
-        <span class="value grey">{{coderepo.stars}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.stars || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #000000;"></div>
         <span class="key">Subscribers</span>
-        <span class="value grey">{{coderepo.subscribers}}</span>
+        <span class="value grey">{{store.fulldata.codrepo.subscribers || '-'}}</span>
       </div>
     </div>
-    <div class="chart">
+    <div class="chart" v-if="store.summarydata.codrepo_perc">
       <h3 class="fw-600">Better than</h3>
       <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[codrepo_perc]"></apexchart>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.summarydata.codrepo_perc]"></apexchart>
       </div>
       <h3 class="fw-600">tokens</h3>
     </div>
@@ -45,10 +45,9 @@
 
 <script setup>
 import {useStore} from '@/store/index'
-import { reactive, ref } from '@vue/reactivity';
+import { reactive } from '@vue/reactivity';
 
-const coderepo = useStore().fulldata.codrepo
-const {codrepo_perc} = useStore().summarydata
+const store = useStore()
 
 const options = reactive({
   chart: {

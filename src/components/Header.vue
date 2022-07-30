@@ -12,11 +12,11 @@
         </svg>
         <input type="text" v-model="searchword" placeholder="Search">
         <div class="options" v-if="options.length">
-          <div @click="navigate('/'+token.cryptocompare_id)" class="search-option" v-for="token in options" :key="token.cryptocompare_id">
+          <router-link @click="hide" :to="'/'+token.cryptocompare_id" class="search-option" v-for="token in options" :key="token.cryptocompare_id">
             <img class="token-image" :src="token.imageurl" alt="" v-if="token.imageurl">
             <div v-else class="token-image no-image"></div>
             <span>{{token.fullname}}</span>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
@@ -27,23 +27,15 @@
 import { computed, ref } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 import { useStore } from '@/store';
-import { onMounted } from 'vue';
 
-// onMounted(() => useStore().fetchOverallTokens())
 const searchword = ref('')
 const {overall_tokens} = storeToRefs(useStore())
-if (overall_tokens.value !== null || !overall_tokens.value){
-  useStore().fetchOverallTokens()
-}
-const navigate = (path) => window.location=path
 const options = computed(() => {
   return searchword.value ? overall_tokens.value.filter(el => el.fullname.toLowerCase().includes(searchword.value.toLowerCase())) : []
 })
 const hide = () => {
   searchword.value = ''
-  console.log('hide')
 }
-const log = (val) => console.log(val)
 </script>
 
 <style lang="scss" scoped>

@@ -1,42 +1,42 @@
 <template>
-  <div class="twitter-chart" v-if="twitter">
+  <div class="twitter-chart" v-if="store.fulldata.twitter">
     <div class="stats">
       <h3 class="fw-600">Twitter</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{twitter.points}}</span>
+        <span class="value grey">{{store.fulldata.twitter.points || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Followers</span>
-        <span class="value grey">{{twitter.followers}}</span>
+        <span class="value grey">{{store.fulldata.twitter.followers || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Following</span>
-        <span class="value grey">{{twitter.following}}</span>
+        <span class="value grey">{{store.fulldata.twitter.following || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Favourites</span>
-        <span class="value grey">{{twitter.favourites}}</span>
+        <span class="value grey">{{store.fulldata.twitter.favourites || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Lists</span>
-        <span class="value grey">{{twitter.lists}}</span>
+        <span class="value grey">{{store.fulldata.twitter.lists || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #1D9BF0;"></div>
         <span class="key">Statuses</span>
-        <span class="value grey">{{twitter.statuses}}</span>
+        <span class="value grey">{{store.fulldata.twitter.statuses || '-'}}</span>
       </div>
     </div>
-    <div class="chart">
+    <div class="chart" v-if="store.summarydata.twitter_perc">
       <h3 class="fw-600">Better than</h3>
       <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[twitter_perc]"></apexchart>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.summarydata.twitter_perc]"></apexchart>
       </div>
       <h3 class="fw-600">tokens</h3>
     </div>
@@ -45,10 +45,10 @@
 
 <script setup>
 import {useStore} from '@/store/index'
-import { reactive, ref } from '@vue/reactivity';
+import { reactive } from '@vue/reactivity';
 
-const twitter = useStore().fulldata.twitter
-const {twitter_perc} = useStore().summarydata
+const store = useStore()
+
 const options = reactive({
   chart: {
     type: 'radialBar',

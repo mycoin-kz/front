@@ -1,5 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
-
+import {useStore} from '@/store'
 import Summary from '@/pages/Summary.vue'
 
 const routes = [
@@ -16,4 +16,7 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+router.beforeEach((to, from) => {
+  to.params.id ? useStore().fetchData(to.params.id): useStore().fetchData()
 })

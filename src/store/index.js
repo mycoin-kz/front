@@ -27,7 +27,7 @@ export const useStore = defineStore('main', {
         this.fulldata = JSON.parse(localStorage.getItem('fulldata'+id))
         this.signalsdata = JSON.parse(localStorage.getItem('signalsdata'+id))
         this.summarydata = JSON.parse(localStorage.getItem('summarydata'+id))
-        this.overall_tokens = JSON.parse(localStorage.getItem('overall_tokens'+id))
+        this.overall_tokens = JSON.parse(localStorage.getItem('overall_tokens'))
         this.loading = false
         return
       }
@@ -67,12 +67,12 @@ export const useStore = defineStore('main', {
         })
       })
     },
-    fetchOverallTokens(){
-      axios.get(this.base_url + 'summarydata')
-      .then(res => {
-        this.overall_tokens = res.data
-        localStorage.setItem('overall_tokens', JSON.stringify(this.overall_tokens))
-      })
-    }
+    // fetchOverallTokens(){
+    //   axios.get(this.base_url + 'summarydata')
+    //   .then(res => {
+    //     this.overall_tokens = res.data
+    //     localStorage.setItem('overall_tokens', JSON.stringify(this.overall_tokens))
+    //   })
+    // }
   }
 })

@@ -1,32 +1,32 @@
 <template>
-  <div class="twitter-chart" v-if="facebook">
+  <div class="twitter-chart" v-if="store.fulldata.facebook">
     <div class="stats">
       <h3 class="fw-600">Facebook</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{facebook.points}}</span>
+        <span class="value grey">{{store.fulldata.facebook.points || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Likes</span>
-        <span class="value grey">{{facebook.likes}}</span>
+        <span class="value grey">{{store.fulldata.facebook.likes || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Talking about</span>
-        <span class="value grey">{{facebook.talking_about}}</span>
+        <span class="value grey">{{store.fulldata.facebook.talking_about || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Is closed?</span>
-        <span class="value grey">{{facebook.is_closed ? 'Yes' : 'No'}}</span>
+        <span class="value grey">{{store.fulldata.facebook.is_closed !== null ?(store.fulldata.facebook.is_closed ? 'Yes' : 'No') : '-'}}</span>
       </div>
     </div>
-    <div class="chart">
+    <div class="chart" v-if="store.summarydata.fb_perc">
       <h3 class="fw-600">Better than</h3>
       <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[fb_perc]"></apexchart>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.summarydata.fb_perc]"></apexchart>
       </div>
       <h3 class="fw-600">tokens</h3>
     </div>
@@ -35,10 +35,9 @@
 
 <script setup>
 import {useStore} from '@/store/index'
-import { reactive, ref } from '@vue/reactivity';
+import { reactive } from '@vue/reactivity';
 
-const facebook = useStore().fulldata.facebook
-const {fb_perc} = useStore().summarydata
+const store = useStore()
 
 const options = reactive({
   chart: {
@@ -93,7 +92,6 @@ const options = reactive({
     }
   }
 })
-const series = ref([75])
 </script>
 
 <style lang="scss">
