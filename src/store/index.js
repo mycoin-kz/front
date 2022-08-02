@@ -15,7 +15,7 @@ export const useStore = defineStore('main', {
     async fetchData(id='1182'){
       this.loading = true
       // check if last fetch has been done in the same day
-      const hasData = localStorage.getItem('lastFetch'+id) && (new Date()).getDate() === (new Date(localStorage.getItem('lastFetch'+id)).getDate())
+      const hasData = localStorage.getItem('lastFetch'+id) && (new Date()).getDate() === (new Date(localStorage.getItem('lastFetch'+id)).getDate()) && (new Date() - new Date(localStorage.getItem('lastFetch1182')) < 1000*60*60*2)
       // if yes, also check for corresponding data and write it to our state
       if (hasData 
         && localStorage.getItem('fulldata'+id) 
