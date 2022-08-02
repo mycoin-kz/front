@@ -10,9 +10,9 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{store.fulldata.techindicators.ema10 ? store.fulldata.techindicators.ema10.toFixed(2) : '-'}}</td>
-        <td :class="`sentiment-${store.fulldata.techindicators.ema_sentiment}`">
-          {{store.fulldata.techindicators.ema_sentiment || '-'}}
+        <td>{{store.fulldata.techindicators.mfi14 ? store.fulldata.techindicators.mfi14.toFixed(2) : '-'}}</td>
+        <td :class="`sentiment-${store.fulldata.techindicators.mfi14_sentiment}`">
+          {{store.fulldata.techindicators.mfi14_sentiment || '-'}}
         </td>
       </tr>
     </tbody>
@@ -24,9 +24,9 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{store.fulldata.techindicators.sma10 ? store.fulldata.techindicators.sma10.toFixed(2) : '-'}}</td>
-        <td :class="`sentiment-${store.fulldata.techindicators.sma_sentiment}`">
-          {{store.fulldata.techindicators.sma_sentiment || '-'}}
+        <td>{{store.fulldata.techindicators.mom10 ? store.fulldata.techindicators.mom10.toFixed(2) : '-'}}</td>
+        <td :class="`sentiment-${store.fulldata.techindicators.mom10_sentiment}`">
+          {{store.fulldata.techindicators.mom10_sentiment || '-'}}
         </td>
       </tr>
     </tbody>
