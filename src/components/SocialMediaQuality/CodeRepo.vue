@@ -66,7 +66,7 @@ const options = reactive({
   plotOptions: {
     radialBar: {
       hollow: {
-        size: '28px'
+        size: '48px'
       },
       track: {
         background: '#E4E8EF'

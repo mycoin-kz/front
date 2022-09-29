@@ -1,14 +1,18 @@
 <template>
   <div class="main">
-    <app-header></app-header>
+    <app-header v-if="route.meta.module!=='auth'"></app-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script setup>
 /* eslint-disable */
+import { useRoute } from 'vue-router'
+
 import AppHeader from './components/Header.vue'
 import Summary from './pages/Summary.vue'
+
+const route = useRoute()
 </script>
 
 <style lang="scss">

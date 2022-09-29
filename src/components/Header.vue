@@ -1,10 +1,12 @@
 <template>
   <header>
     <div class="container header-inner">
-      <router-link to="/" class="logo">
-        <img src="../assets/img/chart.png" alt="logo-header">
-        <span class="logo-text">Coinfolio</span>
-      </router-link>
+      <div style="flex-grow: 1;">
+        <router-link to="/" class="logo">
+          <img src="../assets/img/logo.svg" alt="logo-header">
+          <span class="logo-text">Coinfolio</span>
+        </router-link>
+      </div>
 
       <div class="searchbar" v-click-outside="hide" tabindex="0">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -19,6 +21,7 @@
           </router-link>
         </div>
       </div>
+      <logout-btn v-if="isAuthenticated"></logout-btn>
     </div>
   </header>
 </template>
@@ -28,6 +31,9 @@ import { computed, ref } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 import { useStore } from '@/store';
 
+import LogoutBtn from '@/components/UI/LogoutBtn.vue'
+import { useAuth } from '@/store/auth/token';
+
 const searchword = ref('')
 const {overall_tokens} = storeToRefs(useStore())
 const options = computed(() => {
@@ -36,6 +42,7 @@ const options = computed(() => {
 const hide = () => {
   searchword.value = ''
 }
+const {isAuthenticated} = storeToRefs(useAuth())
 </script>
 
 <style lang="scss" scoped>
@@ -86,6 +93,7 @@ header{
       grid-gap: 0.5rem;
       font-size: 24px;
       font-weight: 700;
+      text-decoration: none;
       img{
         width: 40px;
         height: 40px;

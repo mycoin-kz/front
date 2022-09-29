@@ -1,9 +1,12 @@
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue'
+
 import App from './App.vue'
+import VueApexCharts from "vue3-apexcharts";
+
 import { createPinia } from 'pinia'
 import {router} from '@/router'
 
-import VueApexCharts from "vue3-apexcharts";
+import AuthLayout from '@/layouts/AuthLayout.vue'
 
 const clickOutside = {
   beforeMount: (el, binding) => {
@@ -21,9 +24,13 @@ const clickOutside = {
   },
 };
 
+const pinia = createPinia()
+pinia.use(({ store }) => { store.router = markRaw(router) });
+
 createApp(App)
-.use(createPinia())
-.use(VueApexCharts)
 .use(router)
+.use(pinia)
+.use(VueApexCharts)
 .directive('click-outside', clickOutside)
+.component('auth-layout', AuthLayout)
 .mount('#app')
