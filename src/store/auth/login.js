@@ -1,17 +1,39 @@
 import { defineStore } from "pinia";
-// import {router} from '@/router'
 import { useAuth } from "./token";
-
+import { ApiLogin } from "./api";
+import { notify } from "@kyvg/vue3-notification";
 
 export const useLogin = defineStore('login', {
+  state: () => ({
+    loading: false
+  }),
   actions: {
-    login(){
+    login(payload){
       const auth = useAuth()
-      const token = 'JWT_TOKEN'
-      auth.token = token
-      localStorage.setItem('jwt', auth.token)
-      console.log('logged in successfully!', useAuth().token)
-      this.router.push('/')
+      this.loading = true
+      ApiLogin(payload)
+      .then((res) => {
+        auth.setToken(res.jwt)
+        return auth.getProfile()
+      })
+      .then(profile => {
+        notify({
+          type: 'success',
+          title: 'Success',
+          text: 'Signed in as ' + profile.full_name
+        })
+        this.router.push('/')
+      })
+      .catch(err => {
+        notify({
+          type: 'error',
+          title: 'Error when trying to sign in',
+          text: 'Unhandled error in server response. Probably you have entered invalid credentials.',
+        })
+      })
+      .finally(() => {
+        this.loading = false
+      })
     }
   }
 })

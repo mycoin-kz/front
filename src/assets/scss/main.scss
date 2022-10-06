@@ -1,6 +1,8 @@
 @import './normalize.scss';
 @import '_vars.scss';
 
+@import 'animations.scss';
+
 .container {
   padding-right: 15px;
   padding-left: 15px;
@@ -46,32 +48,36 @@ span{
   font-size: 14px;
   font-weight: 500;
 }
-.fz-14{
-  font-size: 14px;
+a, a:visited{
+  text-decoration: none;
+  color: $link_color;
 }
-.fz-16{
-  font-size: 16px;
+button{
+  cursor: pointer;
 }
+
+$font_sizes: 14, 16, 18, 22, 24, 32, 36, 48;
+@each $size in $font_sizes {
+  .fz-#{$size}{
+    font-size: #{$size}px;
+  }
+}
+
+$font_weights: 400, 500, 600, 700, 800, 900;
+@each $weight in $font_weights {
+  .fw-#{$weight}{
+    font-weight: #{$weight};
+  }
+}
+
 .violet{
-  color: #5B44DF;
+  color: $purple;
 }
 .grey, .gray{
-  color: #808191;
+  color: $gray;
 }
 .text-center{
   text-align: center;
-}
-.fw-400{
-  font-weight: 400;
-}
-.fw-500{
-  font-weight: 500;
-}
-.fw-600{
-  font-weight: 600;
-}
-.fw-700{
-  font-weight: 700;
 }
 
 .with-icon::after{
@@ -86,6 +92,7 @@ span{
   height: 20px;
   padding: 0;
   margin: 0;
+  display: inline-block;
 }
 .btn-main{
   border: none;
@@ -93,8 +100,27 @@ span{
   padding: 1.25rem;
   width: 100%;
   font-size: 16px;
+
+  &:hover{
+    // box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    // -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+    // -moz-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+  }
 }
 .btn-purple{
   background-color: $purple;
   color: $white;
+
+  &:hover{
+    background: $purple_hover;
+  }
+  &:active{
+    background: $purple_deep;
+  }
+}
+button.disabled{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.error{
+  color: $error;
 }

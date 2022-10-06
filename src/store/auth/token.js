@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { ApiProfile } from "./api";
 
 export const useAuth = defineStore('auth', {
   state: () => ({
@@ -13,13 +14,14 @@ export const useAuth = defineStore('auth', {
     setToken(token){
       this.token = token
       localStorage.setItem('jwt', this.token)
-      console.log(this.token)
     },
     destroyToken(){
       this.token = null
       localStorage.removeItem('jwt')
-      console.log(this.token)
       this.router.push('/login')
+    },
+    async getProfile(){
+      return await ApiProfile()
     }
   }
 })

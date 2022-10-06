@@ -1,4 +1,5 @@
 <template>
+  <notifications />
   <div class="main">
     <app-header v-if="route.meta.module!=='auth'"></app-header>
     <router-view></router-view>
