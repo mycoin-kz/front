@@ -7,6 +7,8 @@ import {router} from '@/router'
 import Notifications from '@kyvg/vue3-notification';
 
 import AuthLayout from '@/layouts/AuthLayout.vue'
+import MainLayout from '@/layouts/MainLayout.vue'
+import Icons from '@/components/Icons/Icons.vue'
 
 const clickOutside = {
   beforeMount: (el, binding) => {
@@ -34,4 +36,6 @@ createApp(App)
 .use(Notifications)
 .directive('click-outside', clickOutside)
 .component('auth-layout', AuthLayout)
+.component('main-layout', MainLayout)
+.component('Icons', Icons)
 .mount('#app')

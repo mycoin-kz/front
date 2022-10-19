@@ -42,8 +42,7 @@ const validatePassword = (inputFields, errors) => {
 
 export const registerValidate = (inputFields, errors) => {
   const clear = (errors) => {
-    errors.value.first_name = [];
-    errors.value.last_name = [];
+    errors.value.name = [];
     errors.value.email = [];
     errors.value.password = [];
   };
@@ -51,8 +50,7 @@ export const registerValidate = (inputFields, errors) => {
   validateEmail(inputFields, errors)
   validatePassword(inputFields, errors)
   return (
-    !errors.value.first_name.length
-    && !errors.value.last_name.length
+    !errors.value.name.length
     && !errors.value.email.length 
     && !errors.value.password.length
   );

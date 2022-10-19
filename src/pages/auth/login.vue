@@ -24,9 +24,6 @@ import { storeToRefs } from 'pinia';
 import InputGroup from '@/components/Auth/InputGroup.vue';
 import UIButton from '@/components/UI/Button.vue'
 
-const {loading} = storeToRefs(useLogin())
-const {login} = useLogin()
-
 const inputFields = ref({
   email: '',
   password: ''
@@ -36,17 +33,21 @@ const errors = ref({
   password: []
 })
 
+
+const {loading} = storeToRefs(useLogin())
+const {login} = useLogin()
 const validate = () => loginValidate(inputFields, errors)
+const submitHandler = () => {
+  console.log('submitted login form, validation result:', validate())
+  validate() && login(inputFields.value)
+}
+
 
 const log = computed(() => {
   console.log('email:', inputFields.value.email)
   console.log('password:', inputFields.value.password)
   return ''
 })
-const submitHandler = () => {
-  console.log('submitted login form, validation result:', validate())
-  validate() && login(inputFields.value)
-}
 </script>
 
 <style>

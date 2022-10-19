@@ -1,20 +1,13 @@
 <template>
   <div class="input-group">
     <UIInput
-      v-if="typeof inputFields.first_name !== 'undefined'"
-      @input="handleInput($event, 'first_name')"
+      v-if="typeof inputFields.name !== 'undefined'"
+      @input="handleInput($event, 'name')"
       type="text"
       icon="person"
-      placeholder="First Name"
-      :errors="errors.first_name"
-    />
-    <UIInput
-      v-if="typeof inputFields.last_name !== 'undefined'"
-      @input="handleInput($event, 'last_name')"
-      type="text"
-      icon="person"
-      placeholder="Last Name"
-      :errors="errors.last_name"
+      placeholder="Name"
+      :errors="errors.name"
+      name="name"
     />
     <UIInput 
       v-if="typeof inputFields.email !== 'undefined'" 
@@ -23,6 +16,7 @@
       icon="email"
       placeholder="Work e-mail"
       :errors="errors.email"
+      name="email"
     />
     <UIInput 
       v-if="typeof inputFields.password !== 'undefined'" 
@@ -31,6 +25,8 @@
       icon="password"
       placeholder="Password"
       :errors="errors.password"
+      name="password"
+      :password="true"
     />
   </div>
 </template>

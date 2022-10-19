@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
-import { ApiProfile } from "./api";
+import { base_url } from "./api";
+import axios from 'axios'
+
 
 export const useAuth = defineStore('auth', {
   state: () => ({
@@ -21,7 +23,9 @@ export const useAuth = defineStore('auth', {
       this.router.push('/login')
     },
     async getProfile(){
-      return await ApiProfile()
+      return await axios.post(base_url + 'auth/profile', {
+        jwt: this.token
+      })
     }
   }
 })

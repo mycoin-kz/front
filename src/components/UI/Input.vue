@@ -1,7 +1,13 @@
 <template>
   <div class="ui-input-wrapper" :class="{'error': errors.length}" ref="wrapper">
     <Icons v-if="icon" :icon="icon"></Icons>
-    <input :placeholder="placeholder" class="base-input fz-16" :type="getType" @input="($event) => emit('input', $event)">
+    <input :name="name" :placeholder="placeholder" class="base-input fz-16" :type="getType" @input="($event) => emit('input', $event)">
+    <Icons 
+      v-if="password" 
+      :icon="passwordHidden ? 'password-hidden' : 'password-visible'" 
+      @click="passwordHidden=!passwordHidden"
+      class="password-btn cursor"
+    />
   </div>
   <div class="errors" v-if="errors.length" ref="errorsRef">
     <span class="error" v-for="(error, index) in errors" :key="index">{{error}}</span>
@@ -10,14 +16,14 @@
 
 <script setup>
 import { computed, defineProps, ref, defineEmits } from 'vue';
-import Icons from '../Icons/Icons.vue';
 
 const props = defineProps({
   icon: String,
   type: String,
   password: Boolean,
   placeholder: String,
-  errors: Array
+  errors: Array,
+  name: String
 })
 const emit = defineEmits(['input'])
 

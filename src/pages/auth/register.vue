@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <auth-layout>
-      <form class="register-form" @submit.prevent="handleSubmit">
+      <form autocomplete="off" class="register-form" @submit.prevent="handleSubmit">
         <h3 class="fz-24 fw-500 text-center">Start your 14 days free trial</h3>
         <p class="fw-400 text-center">Already using Coinfolio? <router-link class="fw-600" :to="{name: 'Login'}">Sign In</router-link></p>
         
@@ -25,14 +25,12 @@ const handleSubmit = () => {
 }
 
 const inputFields = ref({
-  first_name: '',
-  last_name: '',
+  name: '',
   email: '',
   password: ''
 })
 const errors = ref({
-  first_name: [],
-  last_name: [],
+  name: [],
   email: [],
   password: []
 })

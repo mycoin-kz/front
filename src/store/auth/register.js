@@ -1,10 +1,11 @@
 import { defineStore } from "pinia";
-import { ApiRegister } from "./api";
+import axios from 'axios'
+import { base_url } from "./api";
 
 export const useRegister = defineStore('register', {
   actions: {
     register(payload){
-      ApiRegister(payload)
+      axios.post(base_url + 'auth/register', payload)
       .then((res) => {
         console.log(res)
       })

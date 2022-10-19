@@ -3,6 +3,11 @@ import Register from '@/pages/auth/register.vue'
 import ResetPass from '@/pages/auth/forgot_password.vue'
 
 import Summary from '@/pages/Summary.vue'
+import Feed from '@/pages/Feed.vue'
+import Explore from '@/pages/Explore.vue'
+import Watchlist from '@/pages/Watchlist.vue'
+import Portfolio from '@/pages/Portfolio.vue'
+import Profile from '@/pages/Profile.vue'
 
 import {createRouter, createWebHistory} from 'vue-router'
 import {useStore} from '@/store'
@@ -12,10 +17,35 @@ import { useAuth } from './store/auth/token'
 const routes = [
   {
     path: '',
-    redirect: '/1182'
+    redirect: '/feed'
   },
   {
-    path: '/:id',
+    path: '/feed',
+    name: 'Feed',
+    component: Feed
+  },
+  {
+    path: '/explore',
+    name: 'Explore',
+    component: Explore
+  },
+  {
+    path: '/watchlist',
+    name: 'Watchlist',
+    component: Watchlist
+  },
+  {
+    path: '/portfolio',
+    name: 'Portfolio',
+    component: Portfolio
+  },
+  {
+    path: '/profile',
+    name: 'My Profile',
+    component: Profile
+  },
+  {
+    path: '/explore/:id',
     name: 'Summary',
     component: Summary,
   },
