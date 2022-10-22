@@ -1,32 +1,32 @@
 <template>
-  <div class="twitter-chart" v-if="store.fulldata.facebook">
+  <div class="facebook-chart" v-if="store.tokens[id].fulldata.facebook">
     <div class="stats">
       <h3 class="fw-600">Facebook</h3>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #6C5DD3;"></div>
         <span class="key">Points</span>
-        <span class="value grey">{{store.fulldata.facebook.points || '-'}}</span>
+        <span class="value grey">{{store.tokens[id].fulldata.facebook.points || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Likes</span>
-        <span class="value grey">{{store.fulldata.facebook.likes || '-'}}</span>
+        <span class="value grey">{{store.tokens[id].fulldata.facebook.likes || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Talking about</span>
-        <span class="value grey">{{store.fulldata.facebook.talking_about || '-'}}</span>
+        <span class="value grey">{{store.tokens[id].fulldata.facebook.talking_about || '-'}}</span>
       </div>
       <div class="stats-elem">
         <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Is closed?</span>
-        <span class="value grey">{{store.fulldata.facebook.is_closed !== null ?(store.fulldata.facebook.is_closed ? 'Yes' : 'No') : '-'}}</span>
+        <span class="value grey">{{store.tokens[id].fulldata.facebook.is_closed !== null ?(store.tokens[id].fulldata.facebook.is_closed ? 'Yes' : 'No') : '-'}}</span>
       </div>
     </div>
-    <div class="chart" v-if="store.summarydata.fb_perc">
+    <div class="chart" v-if="store.tokens[id].summarydata.fb_perc">
       <h3 class="fw-600">Better than</h3>
       <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[store.summarydata.fb_perc]"></apexchart>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.fb_perc]"></apexchart>
       </div>
       <h3 class="fw-600">tokens</h3>
     </div>
@@ -36,6 +36,10 @@
 <script setup>
 import {useStore} from '@/store/index'
 import { reactive } from '@vue/reactivity';
+import { useRoute } from 'vue-router'
+
+
+const id = useRoute().params.id
 
 const store = useStore()
 
@@ -94,34 +98,10 @@ const options = reactive({
 })
 </script>
 
-<style lang="scss">
-.stats-circle{
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  display: inline-block;
-  margin-right: 10px;
-}
-.stats-elem{
-  display: flex;
-  align-items: center;
-
-  .key{
-    flex-grow: 1;
-  }
-}
-.twitter-chart{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-</style>
+ 
 
 <style scoped>
-.stats{
-  display: flex;
-  grid-gap: 1rem;
-  flex-direction: column;
-}
+ 
 .chart{
   display: flex;
   flex-direction: column;

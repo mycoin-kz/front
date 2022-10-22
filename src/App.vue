@@ -6,8 +6,13 @@
 <script setup>
 /* eslint-disable */
 import { useRoute } from 'vue-router'
+import {useStore} from '@/store/index'
+import { onMounted } from 'vue-demi'
 
 const route = useRoute()
+onMounted(() => {
+  useStore().fetchOverallTokens()
+})
 </script>
 
 <style lang="scss">

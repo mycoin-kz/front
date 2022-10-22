@@ -1,24 +1,17 @@
 <template>
-  <div class="mainpage">
-    <main-layout>
-      <div class="text-center" v-if="store.loading">
-        <loading-spinner/>
-      </div>
-      <div v-else-if="store.error">
-        {{store.error}}
-      </div>
-      <div v-else>
-        <token-summary></token-summary>
-        <trading-signals></trading-signals>
-        <socials></socials>
-      </div>
-    </main-layout>
-  </div>
+  <main-layout>
+    <div class="text-center" v-if="store.loading">
+      <loading-spinner/>
+    </div>
+    <div class="mainpage" v-else>
+      <token-summary></token-summary>
+      <socials></socials>
+    </div>
+  </main-layout>
 </template>
 
 <script setup>
 import TokenSummary from '@/components/TokenSummary'
-import TradingSignals from '@/components/TradingSignals'
 import Socials from '@/components/SocialMediaQuality'
 import LoadingSpinner from '@/components/UI/Loader.vue'
 
@@ -28,16 +21,14 @@ import { useRoute } from 'vue-router'
 const store = useStore()
 
 const id = useRoute().params.id
-if (id){
-  useStore().fetchData(id)
-} else {
-  useStore().fetchData()
-}
+store.tokens[id] || useStore().fetchData(id)
 </script>
 
 <style lang="scss">
 .mainpage{
-  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1.5rem;
 }
 .block{
   background: #FCFCFC;

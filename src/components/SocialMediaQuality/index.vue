@@ -1,12 +1,13 @@
 <template>
   <div class="social-media-quality">
-    <h3>Social Media Quality</h3>
+    <h3>Social Media</h3>
     <div class="content">
       <twitter></twitter>
       <reddit></reddit>
-      <code-repo></code-repo>
       <facebook></facebook>
     </div>
+    <h3>Development</h3>
+    <code-repo></code-repo>
   </div>
 </template>
 
@@ -21,13 +22,11 @@ import Reddit from './Reddit.vue';
 .social-media-quality{
   display: grid;
   .content{
-    display: flex;
+    display: grid;
     grid-gap: 2rem;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  .content > div{
-    width: 35rem;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 }
 </style>

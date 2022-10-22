@@ -79,7 +79,7 @@ export const router = createRouter({
   routes,
 })
 router.beforeEach((to, from) => {
-  useAuth().isAuthenticated && (to.params.id ? useStore().fetchData(to.params.id): useStore().fetchData())
+  // useAuth().isAuthenticated && (to.params.id && useStore().fetchData(to.params.id))
   if (!useAuth().isAuthenticated && to.meta.module !== 'auth') {
     console.log('user not authenticated')
     return { name: 'Login' }

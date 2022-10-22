@@ -1,7 +1,7 @@
 <template>
   <main-layout>
     <h1>Cryptocurrencies List</h1>
-    <table-grid :tokens="overall_tokens" :loading="loading" />
+    <table-grid :tokens="overall_tokens" :loading="loading_overall" />
   </main-layout>
 </template>
 
@@ -12,7 +12,7 @@ import { storeToRefs } from 'pinia'
 import TableGrid from '@/components/TableGrid.vue'
 
 const store = useStore()
-const { overall_tokens, loading } = storeToRefs(store)
+const { overall_tokens, loading_overall } = storeToRefs(store)
 </script>
 
 <style>

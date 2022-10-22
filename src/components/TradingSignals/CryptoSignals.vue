@@ -1,57 +1,57 @@
 <template>
-<div class="crypto-signals">
-  <h4>Crypto signals</h4>
-  <table>
+  <table class="crypto-signals">
     <thead>
       <tr>
-        <td>Signal</td>
-        <td>Value</td>
-        <td>Score</td>
-        <td>Sentiment</td>
+        <td class="grey fw-400">Signal</td>
+        <!-- <td>Value</td>
+        <td>Score</td> -->
+        <td class="grey fw-400">Sentiment</td>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>inOutVar</td>
-        <td>{{store.signalsdata.inoutvar.value || '-'}}</td>
-        <td>{{store.signalsdata.inoutvar.score || '-'}}</td>
-        <td :class="`sentiment-${store.signalsdata.inoutvar.sentiment || '-'}`">
-          {{store.signalsdata.inoutvar.sentiment || '-'}}
+        <td>In-Out Var</td>
+        <!-- <td>{{store.tokens[id].signalsdata.inoutvar.value || '-'}}</td>
+        <td>{{store.tokens[id].signalsdata.inoutvar.score || '-'}}</td> -->
+        <td :class="`sentiment-${store.tokens[id].signalsdata.inoutvar.sentiment || '-'}`">
+          {{store.tokens[id].signalsdata.inoutvar.sentiment || '-'}}
         </td>
       </tr>
       <tr>
-        <td>concetrationVar</td>
-        <td>{{store.signalsdata.concentrationvar.value || '-'}}</td>
-        <td>{{store.signalsdata.concentrationvar.score || '-'}}</td>
-        <td :class="`sentiment-${store.signalsdata.concentrationvar.sentiment || '-'}`">
-          {{store.signalsdata.concentrationvar.sentiment || '-'}}
+        <td>Concetration Var</td>
+        <!-- <td>{{store.tokens[id].signalsdata.concentrationvar.value || '-'}}</td>
+        <td>{{store.tokens[id].signalsdata.concentrationvar.score || '-'}}</td> -->
+        <td :class="`sentiment-${store.tokens[id].signalsdata.concentrationvar.sentiment || '-'}`">
+          {{store.tokens[id].signalsdata.concentrationvar.sentiment || '-'}}
         </td>
       </tr>
       <tr>
-        <td>adressesNetGrowth</td>
-        <td>{{store.signalsdata.addressesnetgrowth.value || '-'}}</td>
-        <td>{{store.signalsdata.addressesnetgrowth.score || '-'}}</td>
-        <td :class="`sentiment-${store.signalsdata.addressesnetgrowth.sentiment || '-'}`">
-          {{store.signalsdata.addressesnetgrowth.sentiment || '-'}}
+        <td>Adresses Net Growth</td>
+        <!-- <td>{{store.tokens[id].signalsdata.addressesnetgrowth.value || '-'}}</td>
+        <td>{{store.tokens[id].signalsdata.addressesnetgrowth.score || '-'}}</td> -->
+        <td :class="`sentiment-${store.tokens[id].signalsdata.addressesnetgrowth.sentiment || '-'}`">
+          {{store.tokens[id].signalsdata.addressesnetgrowth.sentiment || '-'}}
         </td>
       </tr>
       <tr>
-        <td>largetxsVar</td>
-        <td>{{store.signalsdata.largetxsvar.value || '-'}}</td>
-        <td>{{store.signalsdata.largetxsvar.score || '-'}}</td>
-        <td :class="`sentiment-${store.signalsdata.largetxsvar.sentiment || '-'}`">
-          {{store.signalsdata.largetxsvar.sentiment || '-'}}
+        <td>Large txs Var</td>
+        <!-- <td>{{store.tokens[id].signalsdata.largetxsvar.value || '-'}}</td>
+        <td>{{store.tokens[id].signalsdata.largetxsvar.score || '-'}}</td> -->
+        <td :class="`sentiment-${store.tokens[id].signalsdata.largetxsvar.sentiment || '-'}`">
+          {{store.tokens[id].signalsdata.largetxsvar.sentiment || '-'}}
         </td>
       </tr>
     </tbody>
   </table>
-</div>
 </template>
 
 
 <script setup>
 import {useStore} from '@/store/index'
 import { computed } from '@vue/reactivity';
+import { useRoute } from 'vue-router'
 
+
+const id = useRoute().params.id
 const store = useStore()
 </script>

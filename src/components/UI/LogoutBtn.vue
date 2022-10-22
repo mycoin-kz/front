@@ -1,6 +1,6 @@
 <template>
   <div class="logout-btn" @click="destroyToken">
-    <span class="violet fz-16">Log out</span>
+    <span class="purple fz-16">Log out</span>
     <logout-icon></logout-icon>
   </div>
 </template>

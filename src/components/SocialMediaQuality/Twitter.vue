@@ -1,44 +1,37 @@
 <template>
-  <div class="twitter-chart" v-if="store.fulldata.twitter">
-    <div class="stats">
+  <div class="twitter-chart block" v-if="store.tokens[id].fulldata.twitter">
+    <div class="block-head">
       <h3 class="fw-600">Twitter</h3>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #6C5DD3;"></div>
-        <span class="key">Points</span>
-        <span class="value grey">{{store.fulldata.twitter.points || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #1D9BF0;"></div>
-        <span class="key">Followers</span>
-        <span class="value grey">{{store.fulldata.twitter.followers || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #1D9BF0;"></div>
-        <span class="key">Following</span>
-        <span class="value grey">{{store.fulldata.twitter.following || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #1D9BF0;"></div>
-        <span class="key">Favourites</span>
-        <span class="value grey">{{store.fulldata.twitter.favourites || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #1D9BF0;"></div>
-        <span class="key">Lists</span>
-        <span class="value grey">{{store.fulldata.twitter.lists || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #1D9BF0;"></div>
-        <span class="key">Statuses</span>
-        <span class="value grey">{{store.fulldata.twitter.statuses || '-'}}</span>
-      </div>
     </div>
-    <div class="chart" v-if="store.summarydata.twitter_perc">
-      <h3 class="fw-600">Better than</h3>
-      <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[store.summarydata.twitter_perc]"></apexchart>
+    <div class="chart-inner">
+      <div class="diagram">
+        <div class="diagram-layer">
+          <p class="label fw-400 fz-14 ">Better than <br><span style="color: #2CAFFF">{{store.tokens[id].summarydata.twitter_perc.toFixed(2)}}%</span> tokens</p>
+        </div>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.twitter_perc]"></apexchart>
       </div>
-      <h3 class="fw-600">tokens</h3>
+      <div class="stats">
+        <div class="stats-elem">
+          <span class="key">Followers</span>
+          <span class="value grey">{{store.tokens[id].fulldata.twitter.followers || '-'}}</span>
+        </div>
+        <div class="stats-elem">
+          <span class="key">Following</span>
+          <span class="value grey">{{store.tokens[id].fulldata.twitter.following || '-'}}</span>
+        </div>
+        <div class="stats-elem">
+          <span class="key">Favourites</span>
+          <span class="value grey">{{store.tokens[id].fulldata.twitter.favourites || '-'}}</span>
+        </div>
+        <div class="stats-elem">
+          <span class="key">Lists</span>
+          <span class="value grey">{{store.tokens[id].fulldata.twitter.lists || '-'}}</span>
+        </div>
+        <div class="stats-elem">
+          <span class="key">Statuses</span>
+          <span class="value grey">{{store.tokens[id].fulldata.twitter.statuses || '-'}}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,9 +39,12 @@
 <script setup>
 import {useStore} from '@/store/index'
 import { reactive } from '@vue/reactivity';
+import { useRoute } from 'vue-router'
+
+
+const id = useRoute().params.id
 
 const store = useStore()
-
 const options = reactive({
   chart: {
     type: 'radialBar',
@@ -66,7 +62,7 @@ const options = reactive({
   plotOptions: {
     radialBar: {
       hollow: {
-        size: '28px'
+        size: '60%'
       },
       track: {
         background: '#E4E8EF'
@@ -79,16 +75,16 @@ const options = reactive({
           show: true,
           color: '#808191',
           offsetY: 5,
-          fontSize: '10px',
+          fontSize: '14px',
           fontWeight: '700',
           fontFamily: 'Manrope',
-          formatter: (val) => val.toFixed(1)+'%'
+          formatter: (val) => ''
         }
       }
     }
   },
   fill: {
-    colors: ['#1D9BF0']
+    colors: ['#2CAFFF']
   },
   states: {
     hover: {
@@ -102,6 +98,7 @@ const options = reactive({
     }
   }
 })
+
 </script>
 
 <style lang="scss">
@@ -112,37 +109,18 @@ const options = reactive({
   display: inline-block;
   margin-right: 10px;
 }
+
 .stats-elem{
   display: flex;
   align-items: center;
+  grid-gap: 1rem;
 
   .key{
     flex-grow: 1;
   }
 }
 .twitter-chart{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-</style>
-
-<style scoped>
-.stats{
-  display: flex;
-  grid-gap: 1rem;
-  flex-direction: column;
-}
-.chart{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.chart-inner{
-  height: 9rem;
-  width: 9rem;
-}
-.chart-inner > div{
-  transform: scale(1.6);
+  grid-row: 1/2;
+  grid-column: 1/3;
 }
 </style>

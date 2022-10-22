@@ -11,10 +11,10 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{store.fulldata.techindicators.ema10 ? store.fulldata.techindicators.ema10.toFixed(2) : '-'}}</td>
-        <td>{{store.fulldata.techindicators.ema50 ? store.fulldata.techindicators.ema50.toFixed(2) : '-'}}</td>
-        <td :class="`sentiment-${store.fulldata.techindicators.ema_sentiment}`">
-          {{store.fulldata.techindicators.ema_sentiment || '-'}}
+        <td>{{store.tokens[id].fulldata.techindicators.ema10 ? store.tokens[id].fulldata.techindicators.ema10.toFixed(2) : '-'}}</td>
+        <td>{{store.tokens[id].fulldata.techindicators.ema50 ? store.tokens[id].fulldata.techindicators.ema50.toFixed(2) : '-'}}</td>
+        <td :class="`sentiment-${store.tokens[id].fulldata.techindicators.ema_sentiment}`">
+          {{store.tokens[id].fulldata.techindicators.ema_sentiment || '-'}}
         </td>
       </tr>
     </tbody>
@@ -27,10 +27,10 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{store.fulldata.techindicators.sma10 ? store.fulldata.techindicators.sma10.toFixed(2) : '-'}}</td>
-        <td>{{store.fulldata.techindicators.sma50 ? store.fulldata.techindicators.sma50.toFixed(2) : '-'}}</td>
-        <td :class="`sentiment-${store.fulldata.techindicators.sma_sentiment}`">
-          {{store.fulldata.techindicators.sma_sentiment || '-'}}
+        <td>{{store.tokens[id].fulldata.techindicators.sma10 ? store.tokens[id].fulldata.techindicators.sma10.toFixed(2) : '-'}}</td>
+        <td>{{store.tokens[id].fulldata.techindicators.sma50 ? store.tokens[id].fulldata.techindicators.sma50.toFixed(2) : '-'}}</td>
+        <td :class="`sentiment-${store.tokens[id].fulldata.techindicators.sma_sentiment}`">
+          {{store.tokens[id].fulldata.techindicators.sma_sentiment || '-'}}
         </td>
       </tr>
     </tbody>
@@ -43,10 +43,10 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{store.fulldata.techindicators.macd_line ? store.fulldata.techindicators.macd_line.toFixed(2) : '-'}}</td>
-        <td>{{store.fulldata.techindicators.macd_signal ? store.fulldata.techindicators.macd_signal.toFixed(2) : '-'}}</td>
-        <td :class="`sentiment-${store.fulldata.techindicators.macd_sentiment}`">
-          {{store.fulldata.techindicators.macd_sentiment || '-'}}
+        <td>{{store.tokens[id].fulldata.techindicators.macd_line ? store.tokens[id].fulldata.techindicators.macd_line.toFixed(2) : '-'}}</td>
+        <td>{{store.tokens[id].fulldata.techindicators.macd_signal ? store.tokens[id].fulldata.techindicators.macd_signal.toFixed(2) : '-'}}</td>
+        <td :class="`sentiment-${store.tokens[id].fulldata.techindicators.macd_sentiment}`">
+          {{store.tokens[id].fulldata.techindicators.macd_sentiment || '-'}}
         </td>
       </tr>
     </tbody>
@@ -58,6 +58,10 @@
 <script setup>
 import {useStore} from '@/store/index'
 import { computed } from '@vue/reactivity';
+import { useRoute } from 'vue-router'
+
+
+const id = useRoute().params.id
 
 const store = useStore()
 </script>

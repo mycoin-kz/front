@@ -1,60 +1,50 @@
 <template>
-  <div class="trading-signals">
-    <span class="gray fw-500 with-icon message">Trading Signals</span>
-    <div class="stats">
-      <div class="bullish">
-        <span class="key">Bullish</span>
-        <span class="value">{{store.summarydata.bullish || '-'}}</span>
-      </div>
-      <div class="neutral">
-        <span class="key">Neutral</span>
-        <span class="value">{{store.summarydata.neutral || '-'}}</span>
-      </div>
-      <div class="bearish">
-        <span class="key">Bearish</span>
-        <span class="value">{{store.summarydata.bearish || '-'}}</span>
-      </div>
-    </div>
-  </div>
+  <table class="trading-signals">
+    <thead>
+      <tr>
+        <td class="green fw-400 token-bullish">Bullish</td>
+        <td class="yellow fw-400 token-neutral">Neutral</td>
+        <td class="red fw-400 token-bearish">Bearish</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="fw-400">{{ store.tokens[id].summarydata.bullish }}</td>
+        <td class="fw-400">{{ store.tokens[id].summarydata.neutral }}</td>
+        <td class="fw-400">{{ store.tokens[id].summarydata.bearish }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script setup>
 import { useStore } from '@/store/index'
+import { useRoute } from 'vue-router'
+
+
+const id = useRoute().params.id
 
 const store = useStore()
 </script>
 
 <style lang="scss" scoped>
-.stats, .stats > div{
-  display: flex;
-  align-items: center;
-  // justify-content: center;
+@import '@/assets/scss/vars';
 
-  .bullish .key{
-    color: #1BC5BD;
+table{
+  background: $white;
+  border-radius: 16px;
+  border-collapse: collapse;
+  width: 100%;
+
+  thead{
+    background: transparent;
+    td{
+      padding: 1rem;
+      border-bottom: 1px solid #E6E6EA;
+    }
   }
-  .bearish .key{
-    color: #D70000;
+  td{
+    text-align: center;
   }
-  .key{
-    line-height: 22px;
-    font-size: 16px;
-    font-weight: 700;
-  }
-  .value{
-    font-size: 24px;
-    line-height: 2rem;
-    font-weight: 700;
-  }
-}
-.stats > div{
-  flex-direction: column;
-}
-.stats{
-  grid-gap: .5rem;
-}
-.trading-signals{
-  display: inline-grid;
-  grid-gap: .75rem;
 }
 </style>

@@ -2,34 +2,31 @@
   <div class="token-summary">
     <div class="token-name">
       <token-thumb :token="token" class="token-big"></token-thumb>
-      <!-- <div class="token-image">
-        <img :src="store.summarydata.imageurl" :alt="store.summarydata.fullname">
-      </div>
-      <span class="token-fullname">{{ store.summarydata.fullname }}</span> -->
     </div>
-    <div class="blocks">
-      <trading-signals></trading-signals>
-      <social></social>
-    </div>
+    <signals></signals>
   </div>
 </template>
 
 
 <script setup>
 import TradingSignals from './TradingSignals.vue'
+import Signals from './Signals.vue'
 import Social from './SocialMediaQuality.vue'
 import TokenThumb from '@/components/UI/Token.vue'
 
+// import {storeToRefs} from 'pinia'
 import {useStore} from '@/store/index'
 import {computed} from 'vue'
+import { useRoute } from 'vue-router'
 
 
+const id = useRoute().params.id
 const store = useStore()
 
 const token = computed(() => ({
-  imageurl: store.summarydata.imageurl,
-  coinname: store.summarydata.fullname,
-  symbol: store.summarydata.symbol,
+  imageurl: store.tokens[id].summarydata.imageurl,
+  coinname: store.tokens[id].summarydata.fullname,
+  symbol: store.tokens[id].summarydata.symbol,
 }))
 </script>
 
@@ -58,6 +55,11 @@ const token = computed(() => ({
 .blocks{
   display: flex;
   grid-gap: 4rem;
+}
+.token-summary{
+  display: flex;
+  flex-direction: column;
+  grid-gap: 1.5rem;
 }
 </style>
 

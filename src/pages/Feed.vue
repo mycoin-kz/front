@@ -2,20 +2,20 @@
   <main-layout>
     <div class="watchlist">
       <h3 class="w-600">Watchlist TOP-5</h3>
-      <table-grid :loading="loading" :tokens="overall_tokens.slice(0, 5)"></table-grid>
+      <table-grid :loading="loading_overall" :tokens="overall_tokens.slice(0, 5)"></table-grid>
     </div>
     <div class="mosts">
       <div class="most-bullish">
         <h3 class="w-600">Most Bullish</h3>
-        <table-grid :loading="loading" :fields="['bullish']" :tokens="most_bullish"></table-grid>
+        <table-grid :loading="loading_overall" :fields="['bullish']" :tokens="most_bullish"></table-grid>
       </div>
       <div class="most-bearish">
         <h3 class="w-600">Most Bearish</h3>
-        <table-grid :loading="loading" :fields="['bearish']" :tokens="most_bearish"></table-grid>
+        <table-grid :loading="loading_overall" :fields="['bearish']" :tokens="most_bearish"></table-grid>
       </div>
       <div class="twitter-trending">
         <h3 class="w-600">Twitter Trending</h3>
-        <table-grid :loading="loading" :fields="['score']" :tokens="twitter_trending"></table-grid>
+        <table-grid :loading="loading_overall" :fields="['score']" :tokens="twitter_trending"></table-grid>
       </div>
     </div>
   </main-layout>
@@ -29,7 +29,7 @@ import {computed} from 'vue'
 import TableGrid from '@/components/TableGrid.vue'
 
 const store = useStore()
-const { overall_tokens, loading } = storeToRefs(store)
+const { overall_tokens, loading_overall } = storeToRefs(store)
 
 const most_bullish = computed(() => [...overall_tokens.value].sort((a, b) => b.bullish - a.bullish).slice(0, 3))
 const most_bearish = computed(() => [...overall_tokens.value].sort((a, b) => b.bearish - a.bearish).slice(0, 3))
