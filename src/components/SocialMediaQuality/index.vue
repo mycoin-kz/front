@@ -1,13 +1,15 @@
 <template>
   <div class="social-media-quality">
-    <h3>Social Media</h3>
+    <h3 class="fz-22 fw-600">Social Media</h3>
     <div class="content">
       <twitter></twitter>
       <reddit></reddit>
       <facebook></facebook>
     </div>
-    <h3>Development</h3>
-    <code-repo></code-repo>
+    <h3 class="fz-22 fw-600">Development</h3>
+    <div class="development">
+      <code-repo></code-repo>
+    </div>
   </div>
 </template>
 
@@ -26,7 +28,11 @@ import Reddit from './Reddit.vue';
     grid-gap: 2rem;
 
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  .development{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
 }
 </style>

@@ -22,7 +22,19 @@
         <onchain-signals></onchain-signals>
       </div>
 
-      <div class="block statictics"></div>
+      <div class="block statictics">
+        <h3>Statictics</h3>
+        <table>
+          <thead>
+            <td class="grey fw-400">Indicator</td>
+            <td class="grey fw-400">Value</td>
+          </thead>
+          <tbody>
+            <td class="fw-600">BTC Correlation</td>
+            <td class="fw-400">Direct 75%</td>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div class="group">
       <div class="block technical">
@@ -135,6 +147,9 @@ const options = reactive({
   }
   .statictics{
     flex-grow: 1;
+  }
+  .diagram{
+    margin: 1rem auto;
   }
 }
 </style>

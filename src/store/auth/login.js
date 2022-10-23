@@ -2,11 +2,13 @@ import { defineStore } from "pinia";
 import { useAuth } from "./token";
 import { base_url } from "./api";
 import { notify } from "@kyvg/vue3-notification";
+import { useStore } from "..";
 import axios from 'axios'
 
 export const useLogin = defineStore('login', {
   state: () => ({
-    loading: false
+    loading: false,
+    profile: {}
   }),
   actions: {
     login(payload){
@@ -18,7 +20,10 @@ export const useLogin = defineStore('login', {
         return auth.getProfile()
       })
       .then(profile => {
-        console.log(profile)
+        const store = useStore()
+        store.fetchOverallTokens()
+        store.getWatchlist()
+        this.profile = profile
         notify({
           type: 'success',
           title: 'Success',

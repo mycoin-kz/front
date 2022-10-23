@@ -1,6 +1,9 @@
 import { notify } from "@kyvg/vue3-notification";
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { base_url as django_url } from "./auth/api";
+import { useAuth } from "./auth/token";
+
 /* eslint-disable */
 export const useStore = defineStore('main', {
   state: () => ({
@@ -9,7 +12,11 @@ export const useStore = defineStore('main', {
     loading_overall: false,
     overall_tokens: [],
     error: '',
-    tokens: {}
+    tokens: {},
+    watchlist: {
+      loading: false,
+      data: []
+    },
   }),
   actions: {
     async fetchData(id){
@@ -29,6 +36,7 @@ export const useStore = defineStore('main', {
         .then(res => {
           this.tokens[id].summarydata = res.data
           this.loading = false
+          resolve(res)
         })
         .catch(err => {
           this.loading = false
@@ -49,6 +57,7 @@ export const useStore = defineStore('main', {
         .then(res => {
           this.overall_tokens = res.data
           this.loading_overall = false
+          resolve(res)
         })
         .catch(err => {
           this.loading_overall = false
@@ -58,6 +67,30 @@ export const useStore = defineStore('main', {
             title: 'Error when fetching token data',
             text: 'Unhandled error in server response: ' + this.error,
           })
+          reject(err)
+        })
+      })
+    },
+    async getWatchlist(){
+      this.watchlist.loading = true
+      const store = useAuth()
+      return new Promise((resolve, reject) => {
+        axios.get(django_url + 'watchlist', {
+          headers: {"Authorization": `Bearer ${store.token}`}
+        })
+        .then(res => {
+          this.watchlist.data = res.data
+          this.watchlist.loading = false
+          resolve(res)
+        })
+        .catch(err => {
+          this.error = err.message
+          notify({
+            type: 'error',
+            title: 'Error when fetching watchlist',
+            text: 'Unhandled error in server response: ' + this.error,
+          })
+          this.watchlist.loading = false
           reject(err)
         })
       })

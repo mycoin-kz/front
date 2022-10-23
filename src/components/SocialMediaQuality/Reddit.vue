@@ -1,44 +1,33 @@
 <template>
-  <div class="reddit-chart" v-if="store.tokens[id].fulldata.reddit">
-    <div class="stats">
+  <div class="reddit-chart block" v-if="store.tokens[id].fulldata.reddit">
+    <div class="block-head">
+      <Icons icon="reddit" class="icon-32"/>
       <h3 class="fw-600">Reddit</h3>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #6C5DD3;"></div>
+    </div>
+    <div class="chart-inner">
+      <div class="diagram">
+        <div class="diagram-layer">
+          <p class="label fw-400 fz-14 ">Better than <br><span style="color: #EF5D27">{{store.tokens[id].summarydata.reddit_perc?.toFixed(2) || 0}}%</span> tokens</p>
+        </div>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.reddit_perc || 0]"></apexchart>
+      </div>
+      <div class="stats">
         <span class="key">Points</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.points || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Active users</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.active_users || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Comments / day</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.comments_per_day || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Comments / hour</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.comments_per_hour || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Posts per day</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.posts_per_day || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #FF4500;"></div>
         <span class="key">Subscribers</span>
         <span class="value grey">{{store.tokens[id].fulldata.reddit.subscribers || '-'}}</span>
       </div>
-    </div>
-    <div class="chart" v-if="store.tokens[id].summarydata.reddit_perc">
-      <h3 class="fw-600">Better than</h3>
-      <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.reddit_perc]"></apexchart>
+      <div class="no-data" v-if="!store.tokens[id].summarydata.reddit_perc">
+        <span class="fz-16">No data available for this block</span>
       </div>
-      <h3 class="fw-600">tokens</h3>
     </div>
   </div>
 </template>
@@ -70,7 +59,7 @@ const options = reactive({
   plotOptions: {
     radialBar: {
       hollow: {
-        size: '28px'
+        size: '60%'
       },
       track: {
         background: '#E4E8EF'
@@ -83,10 +72,10 @@ const options = reactive({
           show: true,
           color: '#808191',
           offsetY: 5,
-          fontSize: '10px',
+          fontSize: '14px',
           fontWeight: '700',
           fontFamily: 'Manrope',
-          formatter: (val) => val.toFixed(1)+'%'
+          formatter: (val) => ''
         }
       }
     }
@@ -106,23 +95,5 @@ const options = reactive({
     }
   }
 })
+
 </script>
-
- 
-
-<style scoped>
- 
-.chart{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.chart-inner{
-  height: 9rem;
-  width: 9rem;
-}
-.chart-inner > div{
-  transform: scale(1.6);
-}
-</style>

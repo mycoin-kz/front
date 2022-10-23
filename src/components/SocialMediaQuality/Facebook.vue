@@ -1,34 +1,29 @@
 <template>
-  <div class="facebook-chart" v-if="store.tokens[id].fulldata.facebook">
-    <div class="stats">
+  <div class="facebook-chart block" v-if="store.tokens[id].fulldata.facebook">
+    <div class="block-head">
+      <Icons icon="facebook" class="icon-32"/>
       <h3 class="fw-600">Facebook</h3>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #6C5DD3;"></div>
+    </div>
+    <div class="chart-inner">
+      <div class="diagram">
+        <div class="diagram-layer">
+          <p class="label fw-400 fz-14 ">Better than <br><span style="color: #1570E7">{{store.tokens[id].summarydata.fb_perc?.toFixed(2) || 0}}%</span> tokens</p>
+        </div>
+        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.fb_perc || 0]"></apexchart>
+      </div>
+      <div class="stats">
         <span class="key">Points</span>
         <span class="value grey">{{store.tokens[id].fulldata.facebook.points || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Likes</span>
         <span class="value grey">{{store.tokens[id].fulldata.facebook.likes || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Talking about</span>
         <span class="value grey">{{store.tokens[id].fulldata.facebook.talking_about || '-'}}</span>
-      </div>
-      <div class="stats-elem">
-        <div class="stats-circle" style="background: #3B5998;"></div>
         <span class="key">Is closed?</span>
         <span class="value grey">{{store.tokens[id].fulldata.facebook.is_closed !== null ?(store.tokens[id].fulldata.facebook.is_closed ? 'Yes' : 'No') : '-'}}</span>
       </div>
-    </div>
-    <div class="chart" v-if="store.tokens[id].summarydata.fb_perc">
-      <h3 class="fw-600">Better than</h3>
-      <div class="chart-inner">
-        <apexchart height="100%" width="100%" :options="options" :series="[store.tokens[id].summarydata.fb_perc]"></apexchart>
+      <div class="no-data" v-if="!store.tokens[id].summarydata.fb_perc">
+        <span class="fz-16">No data available for this block</span>
       </div>
-      <h3 class="fw-600">tokens</h3>
     </div>
   </div>
 </template>
@@ -60,7 +55,7 @@ const options = reactive({
   plotOptions: {
     radialBar: {
       hollow: {
-        size: '28px'
+        size: '60%'
       },
       track: {
         background: '#E4E8EF'
@@ -73,16 +68,16 @@ const options = reactive({
           show: true,
           color: '#808191',
           offsetY: 5,
-          fontSize: '10px',
+          fontSize: '14px',
           fontWeight: '700',
           fontFamily: 'Manrope',
-          formatter: (val) => val.toFixed(1)+'%'
+          formatter: (val) => ''
         }
       }
     }
   },
   fill: {
-    colors: ['#3B5998']
+    colors: ['#1570E7']
   },
   states: {
     hover: {
@@ -108,11 +103,6 @@ const options = reactive({
   align-items: center;
 }
 
-.chart-inner{
-  height: 9rem;
-  width: 9rem;
-}
-.chart-inner > div{
-  transform: scale(1.6);
-}
+ 
+ 
 </style>

@@ -31,18 +31,6 @@ const store = useStore()
 @import '@/assets/scss/vars';
 
 table{
-  background: $white;
-  border-radius: 16px;
-  border-collapse: collapse;
-  width: 100%;
-
-  thead{
-    background: transparent;
-    td{
-      padding: 1rem;
-      border-bottom: 1px solid #E6E6EA;
-    }
-  }
   td{
     text-align: center;
   }
