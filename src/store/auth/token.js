@@ -6,6 +6,7 @@ import axios from 'axios'
 export const useAuth = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('jwt') || null,
+    profile: null
   }),
   getters: {
     isAuthenticated(){
@@ -23,9 +24,9 @@ export const useAuth = defineStore('auth', {
       this.router.push('/login')
     },
     async getProfile(){
-      return await axios.post(base_url + 'auth/profile', {
-        jwt: this.token
-      })
+      const res = await axios.post(base_url + 'auth/profile')
+      this.profile = res.data
+      return res
     }
   }
 })

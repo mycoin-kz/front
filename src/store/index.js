@@ -75,11 +75,9 @@ export const useStore = defineStore('main', {
       this.watchlist.loading = true
       const store = useAuth()
       return new Promise((resolve, reject) => {
-        axios.get(django_url + 'watchlist', {
-          headers: {"Authorization": `Bearer ${store.token}`}
-        })
+        axios.get(django_url + 'watchlist')
         .then(res => {
-          this.watchlist.data = res.data
+          this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
           this.watchlist.loading = false
           resolve(res)
         })
@@ -93,6 +91,55 @@ export const useStore = defineStore('main', {
           this.watchlist.loading = false
           reject(err)
         })
+        .finally(res => this.watchlist.loading = false)
+      })
+    },
+    async addToWatchlist(token_id){
+      this.watchlist.loading = true
+      const store = useAuth()
+      return new Promise((resolve, reject) => {
+        axios.post(django_url + 'watchlist', {
+          token: token_id
+        })
+        .then(res => {
+          this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
+          this.watchlist.loading = false
+          resolve(res)
+        })
+        .catch(err => {
+          this.error = err.message
+          notify({
+            type: 'error',
+            title: 'Error when fetching watchlist',
+            text: 'Unhandled error in server response: ' + this.error,
+          })
+          this.watchlist.loading = false
+          reject(err)
+        })
+        .finally(res => this.watchlist.loading = false)
+      })
+    },
+    async removeFromWatchlist(token_id){
+      this.watchlist.loading = true
+      const store = useAuth()
+      return new Promise((resolve, reject) => {
+        axios.delete(django_url + 'watchlist/' + token_id)
+        .then(res => {
+          this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
+          this.watchlist.loading = false
+          resolve(res)
+        })
+        .catch(err => {
+          this.error = err.message
+          notify({
+            type: 'error',
+            title: 'Error when fetching watchlist',
+            text: 'Unhandled error in server response: ' + this.error,
+          })
+          this.watchlist.loading = false
+          reject(err)
+        })
+        .finally(res => this.watchlist.loading = false)
       })
     }
   }

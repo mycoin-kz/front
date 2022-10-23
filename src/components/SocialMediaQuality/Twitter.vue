@@ -27,7 +27,7 @@
         <h3 class="fw-600 fz-14">Followers last 30 days</h3>
         <div class="followers-placeholder">
           <img src="@/assets/img/followers.png" alt="Followers last 30 days">
-          <span class="fz-22">Coming Soon!</span>
+          <span class="fz-18">Coming Soon!</span>
         </div>
       </div>
       <div class="no-data" v-if="!store.tokens[id].summarydata.twitter_perc">
@@ -134,8 +134,13 @@ const options = reactive({
 
   span{
     position: absolute;
-    left: 40%;
-    top: 40%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 .followers-chart{

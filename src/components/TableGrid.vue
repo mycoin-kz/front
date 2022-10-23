@@ -6,12 +6,24 @@
     <table class="tokens-data">
       <thead>
         <tr>
-          <th class="grey fw-400 token-number">#</th>
-          <th class="grey fw-400 token-name">Token</th>
-          <th class="green fw-400 token-bullish" v-if="fields.includes('bullish')">Bullish</th>
-          <th class="yellow fw-400 token-neutral" v-if="fields.includes('neutral')">Neutral</th>
-          <th class="red fw-400 token-bearish" v-if="fields.includes('bearish')">Bearish</th>
-          <th class="grey fw-400 token-score" v-if="fields.includes('score')">Score</th>
+          <th class="token-number">
+            <span class="grey fw-400" @click="sort_by=null">#</span>
+          </th>
+          <th class="token-name">
+            <span class="grey fw-400" @click="sort_by='coinname'">Token</span>
+          </th>
+          <th class="token-bullish" v-if="fields.includes('bullish')">
+            <span class="green fw-400" @click="sort_by='bullish'">Bullish</span>
+          </th>
+          <th class="token-neutral" v-if="fields.includes('neutral')">
+            <span class="yellow fw-400" @click="sort_by='neutral'">Neutral</span>
+          </th>
+          <th class="token-bearish" v-if="fields.includes('bearish')">
+            <span class="red fw-400" @click="sort_by='bearish'">Bearish</span>
+          </th>
+          <th class="token-score" v-if="fields.includes('score')">
+            <span class="grey fw-400" @click="sort_by='total_perc'">Score</span>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -63,13 +75,25 @@ const props = defineProps({
     ]
   }
 })
+const sort_by = ref(null)
 const router = useRouter()
 
 const TOKENS_PER_PAGE = 14
 const page = ref(1)
 const pages = () => Math.ceil(props.tokens.length/TOKENS_PER_PAGE)
 const page_tokens = computed(() => {
-  const res = props.tokens.map((val, index) => ({...val, number: index+1})).slice((page.value-1)*TOKENS_PER_PAGE, page.value*TOKENS_PER_PAGE)
+  const res = [...props.tokens].sort((a, b) => {
+    if (sort_by.value === 'coinname'){
+      if (a.coinname.toLowerCase() > b.coinname.toLowerCase()) {
+        return 1;
+      }
+      if (b.coinname.toLowerCase() > a.coinname.toLowerCase()) {
+          return -1;
+      }
+      return 0
+    }
+    return b[sort_by.value] - a[sort_by.value]
+  }).map((val, index) => ({...val, number: index+1})).slice((page.value-1)*TOKENS_PER_PAGE, page.value*TOKENS_PER_PAGE)
   return res
 })
 
@@ -150,5 +174,11 @@ table.tokens-data{
   .component-icon{
     cursor: pointer;
   }
+}
+</style>
+
+<style scoped>
+th span{
+  cursor: pointer;
 }
 </style>

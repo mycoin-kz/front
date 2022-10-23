@@ -8,7 +8,6 @@ import axios from 'axios'
 export const useLogin = defineStore('login', {
   state: () => ({
     loading: false,
-    profile: {}
   }),
   actions: {
     login(payload){
@@ -17,17 +16,17 @@ export const useLogin = defineStore('login', {
       axios.post(base_url + 'auth/login', payload)
       .then((res) => {
         auth.setToken(res.data.jwt)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
         return auth.getProfile()
       })
       .then(profile => {
         const store = useStore()
         store.fetchOverallTokens()
         store.getWatchlist()
-        this.profile = profile
         notify({
           type: 'success',
           title: 'Success',
-          text: 'Signed in as ' + profile.name
+          text: 'Signed in as ' + profile.data.name
         })
         this.router.push('/')
       })

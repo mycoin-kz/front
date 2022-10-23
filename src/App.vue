@@ -8,15 +8,19 @@
 import { onMounted } from 'vue-demi'
 import { useRoute } from 'vue-router'
 import { useStore } from './store'
+import { useAuth } from './store/auth/token'
+import axios from 'axios'
 
 const route = useRoute()
 
 onMounted(() => {
   const store = useStore()
-  if (!store.overall_tokens.length){
+  const auth = useAuth()
+  axios.defaults.headers.common['Authorization'] = `Bearer ${auth.token}`;
+  if (!store.overall_tokens.length && auth.isAuthenticated){
     store.fetchOverallTokens()
   }
-  if (!store.watchlist.data.length){
+  if (!store.watchlist.data.length && auth.isAuthenticated){
     store.getWatchlist()
   }
 })

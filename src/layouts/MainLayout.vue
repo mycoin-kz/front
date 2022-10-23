@@ -27,7 +27,7 @@ const links = [
   {
     name: 'Watchlist',
     icon: 'star-rounded',
-    availible: false,
+    availible: true,
   },
   {
     name: 'Portfolio',

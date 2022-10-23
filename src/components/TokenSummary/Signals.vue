@@ -24,16 +24,21 @@
 
       <div class="block statictics">
         <h3>Statictics</h3>
-        <table>
-          <thead>
-            <td class="grey fw-400">Indicator</td>
-            <td class="grey fw-400">Value</td>
-          </thead>
-          <tbody>
-            <td class="fw-600">BTC Correlation</td>
-            <td class="fw-400">Direct 75%</td>
-          </tbody>
-        </table>
+        <div class="table">
+          <table>
+            <thead>
+              <td class="grey fw-400">Indicator</td>
+              <td class="grey fw-400">Value</td>
+            </thead>
+            <tbody>
+              <td class="fw-600">BTC Correlation</td>
+              <td class="fw-400">Direct 75%</td>
+            </tbody>
+          </table>
+          <div class="no-data">
+            <span class="fz-16">Coming Soon!</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="group">
@@ -147,6 +152,10 @@ const options = reactive({
   }
   .statictics{
     flex-grow: 1;
+
+    .table{
+      position: relative;
+    }
   }
   .diagram{
     margin: 1rem auto;

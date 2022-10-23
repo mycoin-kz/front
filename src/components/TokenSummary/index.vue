@@ -2,6 +2,24 @@
   <div class="token-summary">
     <div class="token-name">
       <token-thumb :token="token" class="token-big"></token-thumb>
+      <div>
+        <UIButton 
+          :loading="store.watchlist.loading" 
+          v-if="!store.watchlist.data.map(el => el.cryptocompare_id+'').includes(id)" 
+          class="btn-main btn-purple fz-14"
+          @click="() => store.addToWatchlist(id)"
+        >
+          Add to Watchlist
+        </UIButton>
+        <UIButton 
+          :loading="store.watchlist.loading" 
+          v-else 
+          class="btn-main btn-purple fz-14"
+          @click="() => store.removeFromWatchlist(id)"
+        >
+          Remove from Watchlist
+        </UIButton>
+      </div>
     </div>
     <signals></signals>
   </div>
@@ -13,8 +31,8 @@ import TradingSignals from './TradingSignals.vue'
 import Signals from './Signals.vue'
 import Social from './SocialMediaQuality.vue'
 import TokenThumb from '@/components/UI/Token.vue'
+import UIButton from '@/components/UI/Button.vue'
 
-// import {storeToRefs} from 'pinia'
 import {useStore} from '@/store/index'
 import {computed} from 'vue'
 import { useRoute } from 'vue-router'
@@ -51,6 +69,7 @@ const token = computed(() => ({
   background: $white;
   padding: 2.25rem 1.5rem;
   border-radius: 12px;
+  justify-content: space-between;
 }
 .blocks{
   display: flex;
