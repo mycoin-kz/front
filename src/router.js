@@ -1,4 +1,5 @@
 import Login from '@/pages/auth/login.vue'
+import Logout from '@/pages/auth/logout.vue'
 import Register from '@/pages/auth/register.vue'
 import ResetPass from '@/pages/auth/forgot_password.vue'
 
@@ -10,15 +11,10 @@ import Portfolio from '@/pages/Portfolio.vue'
 import Profile from '@/pages/Profile.vue'
 
 import {createRouter, createWebHistory} from 'vue-router'
-import {useStore} from '@/store'
 import { useAuth } from './store/auth/token'
 
 
 const routes = [
-  {
-    path: '',
-    redirect: '/feed'
-  },
   {
     path: '/feed',
     name: 'Feed',
@@ -58,6 +54,11 @@ const routes = [
     }
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    component: Logout
+  },
+  {
     path: '/register',
     name: 'Register',
     component: Register,
@@ -72,6 +73,10 @@ const routes = [
     meta: {
       module: 'auth'
     }
+  },
+  {
+    path: '',
+    redirect: '/feed'
   },
 ]
 export const router = createRouter({

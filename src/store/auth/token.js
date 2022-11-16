@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { base_url } from "./api";
-import axios from 'axios'
+import _axios from 'axios'
 
+const axios = _axios.create({withCredentials: true})
 
 export const useAuth = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('jwt') || null,
-    profile: null
+    profile: null,
+    auth_method: null
   }),
   getters: {
     isAuthenticated(){
@@ -24,9 +26,20 @@ export const useAuth = defineStore('auth', {
       this.router.push('/login')
     },
     async getProfile(){
-      const res = await axios.post(base_url + 'auth/profile')
-      this.profile = res.data
-      return res
+      try{
+        await axios.get(base_url + 'auth/user')
+        const res = await axios.get(base_url + 'auth/profile')
+        this.setToken("AUTH_TOKEN")
+        this.profile = res.data
+        return res
+      }
+      catch (e){
+        if (e.response.status === 403 || e.response.status === 401){
+          this.destroyToken()
+          this.profile = null
+          return null
+        }
+      }
     }
   }
 })

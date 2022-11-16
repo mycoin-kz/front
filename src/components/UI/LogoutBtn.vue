@@ -1,8 +1,8 @@
 <template>
-  <div class="logout-btn" @click="destroyToken">
+  <router-link to="/logout" class="logout-btn">
     <span class="purple fz-16">Log out</span>
     <logout-icon></logout-icon>
-  </div>
+  </router-link>
 </template>
 
 <script setup>

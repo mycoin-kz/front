@@ -1,8 +1,10 @@
 import { notify } from "@kyvg/vue3-notification";
 import { defineStore } from 'pinia'
-import axios from 'axios'
 import { base_url as django_url } from "./auth/api";
 import { useAuth } from "./auth/token";
+import _axios from 'axios'
+
+const axios = _axios.create({withCredentials: true})
 
 /* eslint-disable */
 export const useStore = defineStore('main', {
@@ -83,7 +85,7 @@ export const useStore = defineStore('main', {
         })
         .catch(err => {
           this.error = err.message
-          notify({
+          store.isAuthenticated || notify({
             type: 'error',
             title: 'Error when fetching watchlist',
             text: 'Unhandled error in server response: ' + this.error,
