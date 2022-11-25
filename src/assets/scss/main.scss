@@ -276,7 +276,16 @@ table{
   height: 32px;
 }
 
+.icon-40{
+  width: 40px;
+  height: 40px;
+}
+
 .icon-48{
   width: 48px;
   height: 48px;
+}
+
+.vue-notification.error{
+  color: white;
 }

@@ -6,4 +6,6 @@ export const API_LOGIN = base_url + 'auth/login/'
 export const API_LOGOUT = base_url + 'auth/logout/'
 
 export const API_FACEBOOK_LOGIN = base_url + 'auth/facebook/'
+export const API_GOOGLE_LOGIN_FETCH_TOKEN = base_url + 'auth/google/'
+export const API_GOOGLE_LOGIN = base_url + 'auth/google-code/'
 
