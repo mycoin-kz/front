@@ -12,9 +12,9 @@
       <div class="social-auth">
         <p class="gray text-center">or login with</p>
         <div class="social-icons">
-          <Icons icon="facebook" class="icon-48 cursor" @click="() => facebookLogin()"/>
-          <Icons icon="facebook" class="icon-48 cursor"/>
-          <Icons icon="twitter" class="icon-48 cursor"/>
+          <Icons icon="facebook" class="icon-40 cursor" @click="() => facebookLogin()"/>
+          <Icons icon="twitter" class="icon-40 cursor"/>
+          <Icons icon="google" class="icon-40 cursor" @click="googleLogin" />
         </div>
       </div>
     </auth-layout>
@@ -25,8 +25,10 @@
 import { useLogin } from '@/store/auth/login'
 import {loginValidate} from '@/helpers/validators'
 import {facebookLogin} from '@/store/auth/facebook/login'
+import {setup as googleSetup} from '@/store/auth/google/init'
+import { base_url } from '@/store/auth/api'
 
-import { ref, computed } from 'vue';
+import { ref, computed, inject } from 'vue';
 import { storeToRefs } from 'pinia';
 
 import InputGroup from '@/components/Auth/InputGroup.vue';
@@ -50,6 +52,16 @@ const submitHandler = () => {
     username: inputFields.value.email,
     password: inputFields.value.password
   })
+}
+googleSetup()
+
+console.log(process.env.GOOGLE_CLIENT_ID)
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const REDIRECT_URI = base_url + 'auth/google/'
+const SCOPES = encodeURI(process.env.GOOGLE_SCOPE)
+const googleLoginLink = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES}`
+const googleLogin = () => {
+  window.location = googleLoginLink
 }
 </script>
 

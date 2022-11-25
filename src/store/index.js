@@ -4,7 +4,7 @@ import { base_url as django_url } from "./auth/api";
 import { useAuth } from "./auth/token";
 import _axios from 'axios'
 
-const axios = _axios.create({withCredentials: true})
+const axios = _axios.create()
 
 /* eslint-disable */
 export const useStore = defineStore('main', {
@@ -26,22 +26,24 @@ export const useStore = defineStore('main', {
       this.tokens[id] = {}
 
       return new Promise((resolve, reject) => {
-        axios.get(this.base_url + `fulldata/${id}`)
+        const fulldata = axios.get(this.base_url + `fulldata/${id}`)
         .then(res => {
           this.tokens[id].fulldata = res.data
-          return axios.get(this.base_url + `signalsdata/${id}`)
         })
+
+        const signalsdata = axios.get(this.base_url + `signalsdata/${id}`)
         .then(res => {
           this.tokens[id].signalsdata = res.data
-          return axios.get(this.base_url + `/summarydata/${id}`)
         })
+        const summarydata = axios.get(this.base_url + `summarydata/${id}`)
         .then(res => {
           this.tokens[id].summarydata = res.data
-          this.loading = false
+        })
+        Promise.all([fulldata, signalsdata, summarydata])
+        .then(res => {
           resolve(res)
         })
         .catch(err => {
-          this.loading = false
           this.error = err.message
           notify({
             type: 'error',
@@ -50,6 +52,7 @@ export const useStore = defineStore('main', {
           })
           reject(err)
         })
+        .finally(() => this.loading = false)
       })
     },
     async fetchOverallTokens(){
@@ -77,7 +80,7 @@ export const useStore = defineStore('main', {
       this.watchlist.loading = true
       const store = useAuth()
       return new Promise((resolve, reject) => {
-        axios.get(django_url + 'watchlist')
+        axios.get(django_url + 'watchlist', {withCredentials: true})
         .then(res => {
           this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
           this.watchlist.loading = false
@@ -102,7 +105,7 @@ export const useStore = defineStore('main', {
       return new Promise((resolve, reject) => {
         axios.post(django_url + 'watchlist', {
           token: token_id
-        })
+        }, {withCredentials: true})
         .then(res => {
           this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
           this.watchlist.loading = false
@@ -125,7 +128,7 @@ export const useStore = defineStore('main', {
       this.watchlist.loading = true
       const store = useAuth()
       return new Promise((resolve, reject) => {
-        axios.delete(django_url + 'watchlist/' + token_id)
+        axios.delete(django_url + 'watchlist/' + token_id, {withCredentials: true})
         .then(res => {
           this.watchlist.data = res.data.map(el => this.overall_tokens.filter(token => token.cryptocompare_id+"" === el.token)[0])
           this.watchlist.loading = false

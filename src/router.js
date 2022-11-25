@@ -2,6 +2,7 @@ import Login from '@/pages/auth/login.vue'
 import Logout from '@/pages/auth/logout.vue'
 import Register from '@/pages/auth/register.vue'
 import ResetPass from '@/pages/auth/forgot_password.vue'
+import GoogleLogin from '@/pages/auth/google_login.vue'
 
 import Summary from '@/pages/Summary.vue'
 import Feed from '@/pages/Feed.vue'
@@ -70,6 +71,14 @@ const routes = [
     path: '/reset_pass',
     name: 'ResetPass',
     component: ResetPass,
+    meta: {
+      module: 'auth'
+    }
+  },
+  {
+    path: '/google',
+    name: 'GoogleLogin',
+    component: GoogleLogin,
     meta: {
       module: 'auth'
     }

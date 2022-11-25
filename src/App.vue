@@ -16,9 +16,11 @@ onMounted(() => {
   auth.getProfile()
   if (!store.overall_tokens.length && auth.isAuthenticated){
     store.fetchOverallTokens()
-  }
-  if (!store.watchlist.data.length && auth.isAuthenticated){
-    store.getWatchlist()
+    .then(() => {
+      if (!store.watchlist.data.length){
+        store.getWatchlist()
+      }
+    })
   }
 })
 </script>
