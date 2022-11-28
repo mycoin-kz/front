@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div class="text-center page">
+    Thanks for signing in, soon you will be redirected to an authorized application...
+  </div>
 </template>
 
 <script setup>
@@ -19,7 +21,3 @@ onMounted(() => {
   }
 })
 </script>
-
-<style>
-
-</style>
