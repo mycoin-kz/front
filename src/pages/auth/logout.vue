@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="text-center page">
     <Loader v-if="store.loading"></Loader>
   </div>
 </template>
