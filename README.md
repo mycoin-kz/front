@@ -1,4 +1,4 @@
-# coinfolio-template
+# mycoin.kz
 
 ## Project setup
 ```
